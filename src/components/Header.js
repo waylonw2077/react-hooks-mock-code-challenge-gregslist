@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Search from "./Search";
 
-function Header() {
+function Header({ onSearch }) {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    onSearch(searchQuery);
+  };
+
+  const handleQueryChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <header>
       <h1>
@@ -10,7 +21,11 @@ function Header() {
         </span>
         gregslist
       </h1>
-      <Search />
+      <Search
+        searchQuery={searchQuery}
+        onSearch={handleSearch}
+        onQueryChange={handleQueryChange}
+      />
     </header>
   );
 }
